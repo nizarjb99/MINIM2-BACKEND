@@ -2,7 +2,7 @@
 
 ## To-Do
 
-[x] Web Registre. (2,5 hores per Wenjie)
+[x] Web Registre. (3.5 hores per Wenjie)
 
 [] Web Login.
 

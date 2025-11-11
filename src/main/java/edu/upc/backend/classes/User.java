@@ -6,7 +6,7 @@ import java.util.List;
 public class User {
 
     // 🧱 Atributs
-    private static int nextId = 1;
+    private static int nextId = 0;
     private int id;
     private String username;
     private String nom;
@@ -32,14 +32,6 @@ public class User {
         this.password = password;
         this.datanaixement = datanaixement;
 
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCognom2() {

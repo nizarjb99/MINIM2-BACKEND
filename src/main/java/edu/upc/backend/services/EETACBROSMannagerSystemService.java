@@ -55,26 +55,28 @@ public class EETACBROSMannagerSystemService {
 
     // REGISTRE
     @POST
-    @Path("user/register/{username}/{nom}/{cognom1}/{cognom2}/{email}/{password}/{datanaixement}")
+    @Path("user/register")
     @ApiOperation(value = "Registrar un nou usuari", notes = "Registrar un nou usuari")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Usuari nou registrat", response = User.class),
-            @ApiResponse(code = 404, message = "Error al registrar l'usuari")
+            @ApiResponse(code = 409, message = "Nom d'usuari no disponible")
     })
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addUser(@PathParam("username") String username,@PathParam("nom") String nom, @PathParam("cognom1") String cognom1, @QueryParam("cognom2") String cognom2, @QueryParam("email") String email,@QueryParam("password") String password,@QueryParam("datanaixement") String datanaixement) {
+    public Response addUser(User user) {
         UsersList usersList = this.sistema.getUsersList();
-        User userExists = usersList.getUserByUsername(username);
+        User userExists = usersList.getUserByUsername(user.getUsername());
 
         if (userExists != null) {
-            return Response.ok("Username not available").build();
-        }
-        else{
-            User user = new User(username,nom,cognom1,cognom2,email, password,datanaixement);
+            return Response.status(Response.Status.CONFLICT)
+                    .entity("Username not available")
+                    .build();
+        } else {
+
             this.sistema.addUser(user);
-            return Response.ok(user).build();
+            return Response.status(Response.Status.CREATED)
+                    .entity(user)
+                    .build();
         }
     }
-
 }

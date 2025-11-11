@@ -17,19 +17,19 @@ classDiagram
 
 
 class Entity{
-<<interface>>
+<<abstract>>
+- X : float
+- Y : float
+- hp : int
 }
 
 class Player{
-+ userName : string
-+ hp : int
++ id : string
 - speed : double
-- position : Vector2
 }
 
 class Enemy{
-+ hp : int
-- position : Vector2
+<<abstract>>
 }
 
 Player ..|> Entity
@@ -37,17 +37,17 @@ Enemy ..|> Entity
 
 
 class Game{
-- player : Player
-- id : int
+- playerId : String
+- id : String
 - score : int
 - settings : Settings
-- items : Item[]
-- level : Level
+- currentItem : Item
+- currentLevel : Level
 }
 
 class Level{
-- enemies : Enemy
-- _tileMap : int[][]
+- enemies : Enemy[]
+- id : int
 - timer : Timer
 
 }

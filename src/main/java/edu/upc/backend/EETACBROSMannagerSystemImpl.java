@@ -4,17 +4,22 @@ import edu.upc.backend.classes.*;
 import edu.upc.backend.exceptions.*;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // Per a que en faci les traces li he passat al chat i m'ho ha fet autotamaticament ell
 
 public class EETACBROSMannagerSystemImpl implements EETACBROSMannagerSystem {
     private static EETACBROSMannagerSystemImpl instance;
 
     private UsersList usersList;
+    private List<Item> itemList;
 
     final static Logger logger = Logger.getLogger(EETACBROSMannagerSystemImpl.class);
 
     private EETACBROSMannagerSystemImpl() {
         this.usersList = new UsersList();
+        this.itemList = new ArrayList();
         logger.info("Constructor SistemaGestioBibliotecaImpl inicialitzat");
     }
 
@@ -73,5 +78,9 @@ public class EETACBROSMannagerSystemImpl implements EETACBROSMannagerSystem {
         logger.info("Inici clear()");
         this.usersList = new UsersList();
         logger.info("Fi clear() -> Llista de lectors buidada");
+    }
+
+    public List<Item> getItemList() {
+        return this.itemList;
     }
 }

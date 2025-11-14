@@ -28,6 +28,7 @@ function showItemsShop() {
                         <div class="durability">Durability: ${item.durability}</div>
                         <button class="add-to-cart-btn">Add to Cart</button>
                     </div>
+                    <br>
                 `;
 
                 const $itemElement = $(itemHtml);

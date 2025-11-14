@@ -36,11 +36,10 @@ public class EETACBROSMannagerSystemService {
             User user1 = new User("agente007","Manel Colominas Ruiz","Barcelona","Castelldefels");
             userslist.addUser(user1);
 
-            Item item1 = new Item(1,"Calculator",200,200,"emojiCalculator" );
-            Item item2 = new Item(2,"Labtop",200,200,"emojiLabtop");
+            Item item1 = new Item(1,"Calculator",200,200,"📱","Help you with your maths");
+            Item item2 = new Item(2,"Labtop",200,200,"💻","Help you with your projects");
             itemlist.add(item1);
             itemlist.add(item2);
-
         }
 
     }

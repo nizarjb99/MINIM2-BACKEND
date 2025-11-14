@@ -24,6 +24,7 @@ function onSignUpbtnClick() {
         //$("#res").slideDown("slow");
         $("#res").fadeIn("slow");
         $("#res").text(status);
+        setTimeout(function(){ window.location = "login"; }, 1000);
     });
 }
 

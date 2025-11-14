@@ -29,12 +29,17 @@ public class EETACBROSMannagerSystemService {
         this.sistema = EETACBROSMannagerSystemImpl.getInstance();
 
         UsersList userslist = this.sistema.getUsersList();
+        List<Item> itemlist = this.sistema.getItemList();
 
         if (userslist.size() == 0) {
 
             User user1 = new User("agente007","Manel Colominas Ruiz","Barcelona","Castelldefels");
             userslist.addUser(user1);
 
+            Item item1 = new Item(1,"Calculator",200,200,"📱","Help you with your maths");
+            Item item2 = new Item(2,"Labtop",200,200,"💻","Help you with your projects");
+            itemlist.add(item1);
+            itemlist.add(item2);
         }
 
     }
@@ -54,6 +59,21 @@ public class EETACBROSMannagerSystemService {
         List<User> usuarises = usersList.getUserslist();
 
         GenericEntity<List<User>> entity = new GenericEntity<List<User>>(usuarises) {};
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @ApiOperation(value = "Consultar llista d'Items", notes = "Mostra tots els Items")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Llista trobada", response = Item.class, responseContainer = "List"),
+            @ApiResponse(code = 404, message = "No hi ha Items")
+    })
+    @Path("items")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response showItemList() {
+        List<Item> itemList = this.sistema.getItemList();
+
+        GenericEntity<List<Item>> entity = new GenericEntity<List<Item>>(itemList) {};
         return Response.ok(entity).build();
     }
 

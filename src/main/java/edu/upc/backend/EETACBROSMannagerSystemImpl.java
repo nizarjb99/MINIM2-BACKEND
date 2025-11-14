@@ -1,6 +1,7 @@
 package edu.upc.backend;
 
 import edu.upc.backend.classes.*;
+import edu.upc.backend.exceptions.*;
 import org.apache.log4j.Logger;
 
 // Per a que en faci les traces li he passat al chat i m'ho ha fet autotamaticament ell
@@ -48,6 +49,24 @@ public class EETACBROSMannagerSystemImpl implements EETACBROSMannagerSystem {
         User user = usersList.getUserByUsername(username);
         logger.info("Fi getLector() -> Retorna: " + user);
         return user;
+    }
+
+    public void logIn (String username, String password) {
+        User u = getUserByUsername(username);
+        if (u == null) {
+            logger.error("User " + username + " not found");
+            throw new UserNotFoundException();
+        }
+        else {
+            logger.info("User found");
+            if (password.equals(u.getPassword())) {
+                logger.info("User with correct credentials");
+            }
+            else {
+                logger.error("Incorrect password");
+                throw new IncorrectPasswordException();
+            }
+        }
     }
 
     public void clear() {

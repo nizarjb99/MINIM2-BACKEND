@@ -1,15 +1,12 @@
 package edu.upc.backend.classes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class User {
 
     // 🧱 Atributs
     private static int nextId = 0;
     private int id;
     private String username;
-    private String nom;
+    private String name;
     private String email;
     private String password;
 
@@ -19,22 +16,22 @@ public class User {
     }
 
     // 🔧 Constructor complet
-    public User(String username,String nom,String email,String password) {
+    public User(String username, String name, String email, String password) {
         this.id = nextId++;
         this.username = username;
-        this.nom = nom;
+        this.name = name;
         this.email = email;
         this.password = password;
 
     }
 
 
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -65,7 +62,7 @@ public class User {
     public String toString() {
         return "Client{" +
                 "id=" + id +
-                ", nom='" + nom + '\'' +
+                ", nom='" + name + '\'' +
                 ", password='" + password +'\'' +
                 '}';
     }

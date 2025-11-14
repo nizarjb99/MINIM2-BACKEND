@@ -3,6 +3,16 @@ package edu.upc.backend.classes;
 public abstract class Item {
     static int maxDurability = 20;
 
+    int id;
+    int durability;
+
+    public Item() {}
+    public Item(int id)
+    {
+        setId(id);
+        setDurability(Item.maxDurability);
+    }
+
     public int getId() {
         return id;
     }
@@ -11,22 +21,12 @@ public abstract class Item {
         this.id = id;
     }
 
-    public int getDurabilidad() {
-        return durabilidad;
+    public int getDurability() {
+        return durability;
     }
 
-    public void setDurabilidad(int durabilidad) {
-        this.durabilidad = durabilidad;
-    }
-
-    int id;
-    int durabilidad;
-
-    public Item() {}
-    public Item(int id)
-    {
-        setId(id);
-        setDurabilidad(Item.maxDurability);
+    public void setDurability(int durability) {
+        this.durability = durability;
     }
 
 }

@@ -114,6 +114,8 @@
 
          let username = $("#loginUsernameTbx").val();
          let password = $("#loginPasswordTbx").val();
+         let name = null;
+         let email = null;
 
          if (!username || !password) {
              showBubble("Cal omplir usuari i contrasenya!");
@@ -130,8 +132,10 @@
 
          }).fail((jqXHR) => {
 
-             if (jqXHR.status === 401) {
-                 showBubble("Usuari o contrasenya incorrectes!");
+             if (jqXHR.status === 400) {
+                 showBubble("Contrasenya incorrecta!");
+             } else if (jqXHR.status === 404) {
+                showBubble("No s'ha trobat l'usuari!");
              } else {
                  showBubble("Error del servidor o de connexió!");
              }
@@ -165,8 +169,6 @@
      };
 
      $(document).ready(onReadyDocument);
-</script>
-
 </script>
 
 </body>

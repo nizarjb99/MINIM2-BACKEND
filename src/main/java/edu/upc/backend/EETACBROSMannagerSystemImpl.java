@@ -49,6 +49,10 @@ public class EETACBROSMannagerSystemImpl implements EETACBROSMannagerSystem {
         return this.usersList;
     }
 
+    public List<Item> getItemList() {
+        return this.itemList;
+    }
+
     public User getUserByUsername(String username) {
         logger.info("Inici getLector(username=" + username + ")");
         User user = usersList.getUserByUsername(username);
@@ -78,9 +82,5 @@ public class EETACBROSMannagerSystemImpl implements EETACBROSMannagerSystem {
         logger.info("Inici clear()");
         this.usersList = new UsersList();
         logger.info("Fi clear() -> Llista de lectors buidada");
-    }
-
-    public List<Item> getItemList() {
-        return this.itemList;
     }
 }

@@ -30,15 +30,16 @@ public class EETACBROSMannagerSystemService {
 
         UsersList userslist = this.sistema.getUsersList();
         List<Item> itemlist = this.sistema.getItemList();
-        Item item1 = new Item(1,"Calculator",200,200,"emojiCalculator" );
-        Item item2 = new Item(2,"Labtop",200,200,"emojiLabtop");
-        itemlist.add(item1);
-        itemlist.add(item2);
 
         if (userslist.size() == 0) {
 
             User user1 = new User("agente007","Manel Colominas Ruiz","Barcelona","Castelldefels");
             userslist.addUser(user1);
+
+            Item item1 = new Item(1,"Calculator",200,200,"emojiCalculator" );
+            Item item2 = new Item(2,"Labtop",200,200,"emojiLabtop");
+            itemlist.add(item1);
+            itemlist.add(item2);
 
         }
 

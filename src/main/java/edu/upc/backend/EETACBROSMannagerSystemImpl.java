@@ -13,6 +13,7 @@ public class EETACBROSMannagerSystemImpl implements EETACBROSMannagerSystem {
     private static EETACBROSMannagerSystemImpl instance;
 
     private UsersList usersList;
+    private PlayerList playerList;
     private List<Item> itemList;
 
     final static Logger logger = Logger.getLogger(EETACBROSMannagerSystemImpl.class);
@@ -20,6 +21,7 @@ public class EETACBROSMannagerSystemImpl implements EETACBROSMannagerSystem {
     private EETACBROSMannagerSystemImpl() {
         this.usersList = new UsersList();
         this.itemList = new ArrayList();
+        this.playerList = new PlayerList();
         logger.info("Constructor EETACbROSManagerSystemImpl inicialitzat");
     }
 
@@ -53,11 +55,38 @@ public class EETACBROSMannagerSystemImpl implements EETACBROSMannagerSystem {
         return this.itemList;
     }
 
+    public PlayerList getPlayerList() {
+        return this.playerList;
+    }
+
     public User getUserByUsername(String username) {
         logger.info("Inici getLector(username=" + username + ")");
         User user = usersList.getUserByUsername(username);
         logger.info("Fi getLector() -> Retorna: " + user);
         return user;
+    }
+
+    public Player getPlayerById(int id) {
+        logger.info("Inici getPlayerById(" + id + ")");
+        Player player = playerList.getPlayerByPlayerId(id);
+        logger.info("Fi getPlayerById() -> Retorna: " + player);
+        return player;
+    }
+
+    public User getUserById(int userId) {
+        logger.info("Inici getUserById(" + userId + ")");
+        User user = usersList.getUserById(userId);
+        logger.info("Fi getUserById() -> Retorna: " + user);
+        return user;
+    }
+
+    public Item getItemById(Integer id) {
+        for (Item p : itemList) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
+        return null;
     }
 
     public void logIn (String username, String password) {

@@ -27,6 +27,15 @@ public class UsersList {
         return null; // si no el troba
     }
 
+    public User getUserById(int userId) {
+        for (User c : userslist) {
+            if (c.getId() == userId) {
+                return c;
+            }
+        }
+        return null;
+    }
+
     public List<User> getUserslist() {
         return this.userslist;
     }

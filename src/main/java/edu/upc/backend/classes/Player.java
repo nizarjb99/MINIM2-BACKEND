@@ -1,7 +1,25 @@
 package edu.upc.backend.classes;
 
-public class Player extends Entity
-{
+import java.util.ArrayList;
+import java.util.List;
+
+public class Player extends Entity {
+    int score;
+    List<Item> items;
+
+    public Player() {
+        this.items = new ArrayList<>();
+    }
+    public Player(int playerId, int hp, double speed, float X, float Y, int score)
+    {
+        setPlayerId(playerId);
+        setHp(hp);
+        setSpeed(speed);
+        setX(X);
+        setY(Y);
+        this.score = score;
+        this.items = new ArrayList<>();
+    }
 
 
     public double getSpeed() {
@@ -13,26 +31,23 @@ public class Player extends Entity
     }
 
 
-    public String getPlayerId() {
+    public int getPlayerId() {
         return playerId;
     }
 
-    public void setPlayerId(String playerId) {
+    public void setPlayerId(int playerId) {
         this.playerId = playerId;
     }
 
-    String playerId;
+    public List<Item>  getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    int playerId;
     int hp;
     double speed;
-
-
-    public Player() {}
-    public Player(String playerId, int hp, double speed, float X, float Y)
-    {
-        setPlayerId(playerId);
-        setHp(hp);
-        setSpeed(speed);
-        setX(X);
-        setY(Y);
-    }
 }

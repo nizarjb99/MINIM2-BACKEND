@@ -15,13 +15,15 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Api(value = "/eetacbros", description = "Endpoint de biblioteca Service")
 @Path("/eetacbros")
 public class EETACBROSMannagerSystemService {
 
-    private static final Logger log = Logger.getLogger(EETACBROSMannagerSystemService.class);
+    private static final Logger logger = Logger.getLogger(EETACBROSMannagerSystemService.class);
     private EETACBROSMannagerSystemImpl sistema;
 
     public EETACBROSMannagerSystemService() {
@@ -30,11 +32,16 @@ public class EETACBROSMannagerSystemService {
 
         UsersList userslist = this.sistema.getUsersList();
         List<Item> itemlist = this.sistema.getItemList();
+        PlayerList playerlist = this.sistema.getPlayerList();
 
         if (userslist.size() == 0) {
 
             User user1 = new User("agente007","Manel Colominas Ruiz","Barcelona","Castelldefels");
             userslist.addUser(user1);
+
+            int playerId = user1.getId();
+            Player player1 = new Player(playerId, 100, 100, 100, 100, 100);
+            playerlist.addPlayer(player1);
 
             Item item1 = new Item(1,"Calculator",200,200,"📱","Help you with your maths");
             Item item2 = new Item(2,"Labtop",200,200,"💻","Help you with your projects");
@@ -68,7 +75,7 @@ public class EETACBROSMannagerSystemService {
             @ApiResponse(code = 200, message = "Llista trobada", response = Item.class, responseContainer = "List"),
             @ApiResponse(code = 404, message = "No hi ha Items")
     })
-    @Path("items")
+    @Path("shop/items")
     @Produces(MediaType.APPLICATION_JSON)
     public Response showItemList() {
         List<Item> itemList = this.sistema.getItemList();
@@ -90,7 +97,7 @@ public class EETACBROSMannagerSystemService {
     public Response addUser(User user) {
         UsersList usersList = this.sistema.getUsersList();
         User userExists = usersList.getUserByUsername(user.getUsername());
-        log.info(user.getUsername());
+        logger.info(user.getUsername());
 
         if (userExists != null) {
             return Response.status(Response.Status.CONFLICT)
@@ -143,5 +150,41 @@ public class EETACBROSMannagerSystemService {
         return Response.status(201)
                 .entity(user)
                 .build();
+    }
+
+    // BUY ITEMS SHOP
+    @POST
+    @Path("shop/buy")
+    @ApiOperation(value = "Item buy", notes = "Item buy")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Item.class, responseContainer = "List"),
+            @ApiResponse(code = 404, message = "Couldn't buy"),
+            @ApiResponse(code = 400, message = "Bad request")
+    })
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response shopBuyItems(BuyRequest request) {
+
+        int playerId = request.getPlayerId();
+        User user = sistema.getUserById(playerId);
+
+        if (user == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        String username = user.getUsername();
+
+        List<Item> itemList = request.getItems();
+
+        Player player = sistema.getPlayerById(playerId);
+        if (player == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        player.setItems(itemList);
+
+        logger.info("Purchase done for user " + username);
+
+        return Response.status(Response.Status.CREATED).entity(request).build();
     }
 }

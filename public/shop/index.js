@@ -1,9 +1,10 @@
 // ================= Constants =================
-const BASE_URL = "http://localhost:8080/example/eetacbros/items";
+const BASE_URL = "http://localhost:8080/example/eetacbros/shop/items";
 
 // ================= State Variables =================
 let cart = [];
 let coins = 1000;
+currentPlayerId = 0;
 
 // ================= API Functions =================
 function getJsonItems(url) {
@@ -11,6 +12,17 @@ function getJsonItems(url) {
         url: url,
         dataType: "json",
         method: "GET"
+    });
+}
+
+const BUY_ITEM_BASE_URL = "http://localhost:8080/example/eetacbros/shop/buy";
+function postJsonBuyItems(url,purchaseData) {
+    return $.ajax({
+        url: url,
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(purchaseData),
+        dataType: "json"
     });
 }
 
@@ -210,6 +222,36 @@ function clearCart() {
     showNotification('Emptying the cart');
 }
 
+function buyCartItems() {
+    if (cart.length === 0) {
+        showNotification('Your cart is empty.', 'error');
+        return;
+    }
+
+    // Build the purchase JSON
+    const purchaseData = {
+        playerId: currentPlayerId,
+        items: cart.map(item => ({
+            id: item.id,
+            name: item.name,
+            durability: item.durability,
+            price: item.price,
+            emoji: item.emoji,
+            description: item.description
+        }))
+    };
+
+    postJsonBuyItems(BUY_ITEM_BASE_URL, purchaseData)
+        .done(function(data) {
+            console.log("Purchase successful:", data);
+            showNotification('Items purchased successfully!', 'success');
+        })
+        .fail(function(err) {
+            console.error("Error fetching data:", err);
+            showNotification('Error to send the products', 'error');
+        });
+}
+
 function checkout() {
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
@@ -218,9 +260,11 @@ function checkout() {
         return;
     }
 
+    buyCartItems();
     // Deduct coins
     coins -= total;
     updateCoinsDisplay();
+
 
     // Show success message
     showNotification(`Purchase complete! You spent ${total} coins`, 'success');

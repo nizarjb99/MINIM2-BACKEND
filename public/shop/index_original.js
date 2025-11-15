@@ -1,6 +1,6 @@
 // index.js
 // ================= Functions =================
-const BASE_URL = "http://localhost:8080/example/eetacbros/items";
+const BASE_URL = "http://localhost:8080/example/eetacbros/shop/items";
 
 let cart = [];
 

@@ -57,6 +57,14 @@ public class User {
         this.email = email;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     // 🧾 Representació del client
     @Override
     public String toString() {

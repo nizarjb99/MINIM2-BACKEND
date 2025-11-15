@@ -105,49 +105,10 @@ public class EETACBROSMannagerSystemService {
         }
 
     }
-    // LOGIN
-    @POST
-    @Path("user/loginCredentials")
-    @ApiOperation(value = "Login d'usuari", notes = "Comprova username i password")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Login correcte", response = User.class),
-            @ApiResponse(code = 400, message = "Falten camps"),
-            @ApiResponse(code = 401, message = "Credencials incorrectes")
-    })
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response login(LoginCredentials credentials) {
 
-        if (credentials == null ||
-                credentials.getUsername() == null ||
-                credentials.getPassword() == null) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Falten camps username o password")
-                    .build();
-        }
-
-        // Fem servir directament la UsersList existent
-        UsersList usersList = this.sistema.getUsersList();
-        User user = usersList.getUserByUsername(credentials.getUsername());
-
-        if (user == null) {
-            return Response.status(Response.Status.UNAUTHORIZED)
-                    .entity("Usuari o contrasenya incorrectes")
-                    .build();
-        }
-
-        if (!user.getPassword().equals(credentials.getPassword())) {
-            return Response.status(Response.Status.UNAUTHORIZED)
-                    .entity("Usuari o contrasenya incorrectes")
-                    .build();
-        }
-
-        // Login correcte → retornem l'usuari
-        return Response.ok(user).build();
-    }
     // LOG IN
     @POST
-    @Path("user/loginUser")
+    @Path("user/login")
     @ApiOperation(value = "User log in", notes = "User log in")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful", response = User.class),
@@ -160,10 +121,13 @@ public class EETACBROSMannagerSystemService {
         if (user.getUsername() == null || user.getPassword() == null) {
             return Response.status(400).entity("Invalid parameters").build();
         }
+
         String username = user.getUsername();
         String password = user.getPassword();
+
         try {
             sistema.logIn(username, password);
+            user = sistema.getUserByUsername(username);
         }
         catch (UserNotFoundException e) {
             return Response.status(404)

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EETAC BROS - Tienda</title>
+
+    <!-- NES.css for retro gaming style -->
+    <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="shop/index.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="pixel-bg">
+<!-- Decorative elements -->
+<div class="cloud-1"></div>
+<div class="cloud-2"></div>
+<div class="pixel-bricks"></div>
+<div class="question-block block-1"></div>
+<div class="question-block block-2"></div>
+
+<div class="header">
+    <h1>🛒 EETAC BROS SHOP 🛒</h1>
+    <p>¡Buy items for your adventure!</p>
+</div>
+
+<div class="container">
+    <div class="shop-container">
+        <div class="shop-header">
+            <div class="coins-display">
+                <span class="coin-icon">🪙</span>
+                <span id="coins">1000</span> monedas
+            </div>
+            <div class="cart-icon" id="cartIcon">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Los productos se cargarán aquí con JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal del carrito -->
+<div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+        <div class="cart-header">
+            <h2>🛒 Your Cart</h2>
+            <button class="nes-btn is-error" id="closeCart">X</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Los items del carrito se cargarán aquí -->
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cartTotal">0</span> coins
+        </div>
+        <div class="cart-actions">
+            <button class="nes-btn is-warning" id="clearCart">
+                <span class="button-icon">🗑️</span>
+                Empty Cart
+            </button>
+            <button class="nes-btn is-success" id="checkoutBtn">
+                <span class="button-icon">💳</span>
+                Buy
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Custom JavaScript -->
+<script src="shop/index.js"></script>
+</body>
+</html>

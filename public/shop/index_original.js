@@ -75,25 +75,3 @@ function updateCartDisplay() {
 $(document).ready(function() {
     showItemsShop();
 });
-
-/* JSON EXAMPLE:
-WHEN I WRITE THIS URL "http://localhost:8080/example/eetacbros/items" ON THE BROWSER I GET THIS JSON
-    [
-         {
-             "description": "Help you with your maths",
-             "durability": 200,
-             "emoji": "📱",
-             "id": 1,
-             "name": "Calculator",
-             "price": 200
-         },
-         {
-             "description": "Help you with your projects",
-             "durability": 200,
-             "emoji": "💻",
-             "id": 2,
-             "name": "Laptop",
-             "price": 200
-         }
-    ]
- */

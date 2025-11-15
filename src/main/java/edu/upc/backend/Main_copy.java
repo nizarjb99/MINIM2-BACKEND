@@ -1,7 +1,8 @@
 package edu.upc.backend;
 
 import io.swagger.jaxrs.config.BeanConfig;
-import org.glassfish.grizzly.http.server.*;
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -13,7 +14,7 @@ import java.net.URI;
  * Main class.
  *
  */
-public class Main {
+public class Main_copy {
     // Base URI the Grizzly HTTP server will listen on
     public static final String SWAGGER_URL = "http://localhost:8080/swagger/";
     public static final String BASE_URI = "http://localhost:8080/example/";
@@ -58,19 +59,8 @@ public class Main {
         final HttpServer server = startServer();
 
         StaticHttpHandler staticHttpHandler = new StaticHttpHandler("./public/");
-        // Minimal root handler - only handles true root path
-        server.getServerConfiguration().addHttpHandler(
-                new HttpHandler() {
-                    @Override
-                    public void service(Request request, Response response) throws Exception {
-                        response.sendRedirect("/login/index.html");
-                    }
-                },
-                "/" // ONLY handles "/", not other paths
-        );
+        server.getServerConfiguration().addHttpHandler(staticHttpHandler, "/");
 
-        // Static handler for everything else
-        server.getServerConfiguration().addHttpHandler(staticHttpHandler);
 
         System.out.println(String.format("Jersey app started with WADL available at "
                 + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));

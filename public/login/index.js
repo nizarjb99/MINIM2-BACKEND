@@ -44,6 +44,14 @@ const BASE_URL = "http://localhost:8080/example/eetacbros/user/login";
 
  function onReadyDocument() {
      console.log("Initializing LOGIN...");
+
+     const userId = localStorage.getItem("userId");
+     if (userId) {
+         console.log(`Usuari ja logejat amb ID: ${userId}. Redirigint a shop...`);
+         window.location.href = "./shop";
+         return; // Evita inicialitzar els events si ja hi ha sessió
+     }
+
      $("#loginClearBtn").click(onClearBtnClick);
      $("#loginBtn").click(onLoginBtnClick);
  }

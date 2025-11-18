@@ -245,7 +245,7 @@ function buyCartItems() {
     postJsonBuyItems(BUY_ITEM_BASE_URL, purchaseData)
         .done(function(data) {
             console.log("Purchase successful:", data);
-            showNotification('Items purchased successfully!', 'success');
+            showNotification('Items purchased successfully!', 'success'); // Mirar totes les crides a aquesta funció
         })
         .fail(function(err) {
             console.error("Error fetching data:", err);
@@ -275,6 +275,13 @@ function checkout() {
 
     // Close cart modal
     closeCartModal();
+}
+
+// =================  =================
+function onLogoutClick() {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("username");
+    window.location.href = "../login"; // Canvia la ruta si el login està en un altre lloc
 }
 
 // ================= Modal Functions =================
@@ -310,6 +317,11 @@ function initializeShop() {
         if (e.target === this) {
             closeCartModal();
         }
+    });
+
+    //
+    $(document).ready(function() {
+        $("#logoutBtn").click(onLogoutClick);
     });
 
     // Initialize cart display

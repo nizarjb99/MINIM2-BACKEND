@@ -63,7 +63,7 @@ public class Main {
                 new HttpHandler() {
                     @Override
                     public void service(Request request, Response response) throws Exception {
-                        response.sendRedirect("/login/index.html");
+                          response.sendRedirect("/login");
                     }
                 },
                 "/" // ONLY handles "/", not other paths

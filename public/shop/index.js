@@ -107,15 +107,16 @@ function renderCart() {
     }
 
     let total = 0;
+    let totalItems = 0;
 
     cart.forEach(function(item, index) {
         total += item.price * item.quantity;
-
+        totalItems += item.quantity;
         const cartItem = createCartItem(item, index);
         cartItemsContainer.append(cartItem);
     });
 
-    cartCount.text(cart.length);
+    cartCount.text(totalItems);
     cartTotal.text(total);
 
     // Update checkout button state
@@ -137,7 +138,7 @@ function createCartItem(item, index) {
             <button class="nes-btn quantity-btn decrease-quantity">-</button>
             <span class="quantity">${item.quantity}</span>
             <button class="nes-btn quantity-btn increase-quantity">+</button>
-            <button class="nes-btn is-error remove-item">Eliminar</button>
+            <button class="nes-btn is-error remove-item">Remove</button>
         </div>
     `;
 

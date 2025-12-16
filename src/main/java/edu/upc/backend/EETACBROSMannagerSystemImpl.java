@@ -31,6 +31,7 @@ public class EETACBROSMannagerSystemImpl implements EETACBROSMannagerSystem {
             instance = new EETACBROSMannagerSystemImpl();
             logger.warn("Instancia creada");
         }
+
         logger.info("Fi getInstance() -> " + instance);
         return instance;
     }

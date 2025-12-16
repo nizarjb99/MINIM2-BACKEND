@@ -210,4 +210,37 @@ public class EETACBROSMannagerSystemService {
 
         return Response.status(Response.Status.CREATED).entity(request).build();
     }
+
+    // LLISTA DE GRUPS;
+    @GET
+    @Path("groups")
+    @ApiOperation(value = "Consultar llista de grups", notes = "Mostra tots els grups (")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getGroups() {
+        logger.info("GET /groups called");
+
+        List<Group> groups = new ArrayList<>();
+        groups.add(new Group(1, "Team 1"));
+        groups.add(new Group(2, "Team 2"));
+        groups.add(new Group(3, "Team 3"));
+
+        GenericEntity<List<Group>> entity = new GenericEntity<List<Group>>(groups) {};
+        return Response.ok(entity).build();
+    }
+    @POST
+    @Path("groups/{id}/join")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response JoinGroupRequest(@PathParam("id") int groupId, JoinGroupRequest request) {
+
+        if (request == null) {
+            return Response.status(400).entity("Invalid body").build();
+        }
+
+        logger.info("POST /groups/" + groupId + "/join called -> userId=" + request.getUserId());
+        return Response.ok().build();
+    }
+
+
+
 }
